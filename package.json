@@ -3,24 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "yarn run relay && next dev",
+    "build": "yarn run relay && next build && next export",
+    "start": "yarn run relay && next start",
+    "lint": "yarn run relay && next lint",
+    "update-schema": "yarn run get-graphql-schema https://swapi.skyra.pw/ > schema.graphql",
+    "relay": "relay-compiler"
   },
   "dependencies": {
     "next": "12.2.5",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-relay": "^14.1.0",
+    "relay-runtime": "^14.1.0"
   },
   "devDependencies": {
     "@types/node": "18.7.13",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
+    "@types/react-relay": "^14.1.1",
+    "@types/relay-runtime": "^14.1.2",
+    "babel-plugin-relay": "^14.1.0",
     "eslint": "8.22.0",
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "^8.5.0",
+    "get-graphql-schema": "^2.1.2",
+    "graphql": "^16.6.0",
     "prettier": "^2.7.1",
+    "relay-compiler": "^14.1.0",
     "typescript": "4.8.2"
   }
 }

@@ -1,9 +1,82 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
+
+import { graphql, useLazyLoadQuery } from "react-relay/hooks";
+import { pagesQuery } from "./__generated__/pagesQuery.graphql";
+
+const RepositoryNameQuery = graphql`
+  query pagesQuery {
+    getFilm(film: 4) {
+      director
+      title
+      characters {
+        birthYear
+        eyeColors
+        gender
+        hairColors
+        height
+        mass
+        name
+        skinColors
+      }
+      planets {
+        climates
+        diameter
+        gravity
+        name
+        orbitalPeriod
+        population
+        rotationPeriod
+        surfaceWater
+        terrains
+      }
+      species {
+        averageHeight
+        averageLifespan
+        classification
+        designation
+        eyeColors
+        hairColors
+        language
+        name
+        skinColors
+      }
+      starships {
+        cargoCapacity
+        consumables
+        costInCredits
+        crew
+        hyperdriveRating
+        length
+        manufacturers
+        maxAtmospheringSpeed
+        MGLT
+        model
+        name
+        passengers
+        starshipClass
+      }
+      vehicles {
+        cargoCapacity
+        consumables
+        costInCredits
+        crew
+        length
+        manufacturers
+        maxAtmospheringSpeed
+        model
+        name
+        passengers
+        vehicleClass
+      }
+    }
+  }
+`;
 
 const Home: NextPage = () => {
+  const data = useLazyLoadQuery<pagesQuery>(RepositoryNameQuery, {});
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +89,9 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+
+        <h2>{data.getFilm.director}</h2>
+        <h2>{data.getFilm.title}</h2>
 
         <p className={styles.description}>
           Get started by editing{" "}
